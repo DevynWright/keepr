@@ -17,11 +17,33 @@ namespace Keepr.Services
         {
             return _repo.Get();
         }
+        internal object GetById(int id)
+        {
+            var exists = _repo.GetById(id);
+            if(exists == null) { throw new Exception("Item Does not Exist");}
+            return exists;
+        }
 
         public Keep Create(Keep newKeep)
         {
-            newKeep.Id = _repo.Create(newKeep);
-            return newKeep;
+            return _repo.Create(newKeep);
+        }
+
+
+        internal string Delete(int id)
+        {
+            var exists = _repo.GetById(id);
+            if(exists == null) { throw new Exception("Item Does not Exist");}
+            _repo.Delete(id);
+            return "Keep has been deleted!";
+        }
+
+        internal object Edit(Keep newKeep)
+        {
+            var exists = _repo.GetById(newKeep.Id);
+            if(exists == null) { throw new Exception("Item Does not Exist");}
+            _repo.Edit(newKeep);
+            return "Keep has been deleted!";
         }
     }
 }
