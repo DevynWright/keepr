@@ -21,16 +21,16 @@ namespace Keepr.Repositories
             return _db.Query<Keep>(sql);
         }
 
-        internal Keep Create(Keep KeepData)
+        internal Keep Create(Keep newKeep)
         {
             string sql =@"
-            INSERT INTO keeps (name, description, img, userId, isPrivate)
-            VALUES (@Name, @Description, @Img, @UserId, @IsPrivate);
+            INSERT INTO keeps (name, description, img, isPrivate)
+            VALUES (@Name, @Description, @Img, @IsPrivate);
             SELECT LAST_INSERT_ID();
             ";
-            int id = _db.ExecuteScalar<int>(sql, KeepData);
-            KeepData.Id = id;
-            return KeepData;
+            int id = _db.ExecuteScalar<int>(sql, newKeep);
+            newKeep.Id = id;
+            return newKeep;
         }
 
         internal Keep GetById(int id)
@@ -48,8 +48,9 @@ namespace Keepr.Repositories
         internal void Edit(Keep newKeep)
         {
             string sql =@"
-            UPDATE keeps (name, description, img, userId, isPrivate)
-            VALUES (@Name, @Description, @Img, @UserId, @IsPrivate);
+            UPDATE keeps 
+            SET
+            name = @Name
             WHERE id = @Id;
             ";
             _db.Execute(sql, newKeep);

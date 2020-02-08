@@ -17,7 +17,7 @@ namespace Keepr.Services
         {
             return _repo.Get();
         }
-        internal object GetById(int id)
+        public Keep GetById(int id)
         {
             var exists = _repo.GetById(id);
             if(exists == null) { throw new Exception("Item Does not Exist");}
@@ -26,7 +26,8 @@ namespace Keepr.Services
 
         public Keep Create(Keep newKeep)
         {
-            return _repo.Create(newKeep);
+            _repo.Create(newKeep);
+            return newKeep;
         }
 
 

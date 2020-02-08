@@ -47,7 +47,7 @@ namespace Keepr.Controllers
 
         [HttpPost]
         [Authorize]
-        public ActionResult<Keep> Create([FromBody] Keep newKeep)
+        public ActionResult<Keep> Post([FromBody] Keep newKeep)
         {
             try
             {
@@ -72,7 +72,7 @@ namespace Keepr.Controllers
                 return BadRequest(e.Message);
             }
         }
-        [HttpPut]
+        [HttpPut("{id}")]
         public ActionResult<Keep> Edit([FromBody] Keep newKeep, int id)
         {
             try
