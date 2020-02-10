@@ -8,43 +8,36 @@ namespace Keepr.Services
 {
     public class VaultsService
     {
-        private readonly VaultsRepository _repo;
-        public VaultsService(VaultsRepository repo)
+        private readonly VaultsRepository _vaultRepo;
+        public VaultsService(VaultsRepository vaultRepo)
         {
-            _repo = repo;
+            _vaultRepo = vaultRepo;
         }
-        public IEnumerable<Vault> Get()
+        public IEnumerable<Vault> Get(string userId)
         {
-            return _repo.Get();
+            return _vaultRepo.Get(userId);
         }
-        internal Vault GetById(int id)
+        internal Vault GetById(int id, string userId)
         {
-            var exists = _repo.GetById(id);
-            if(exists == null) { throw new Exception("Item Does not Exist");}
+            var exists = _vaultRepo.GetById(id);
+            if (exists == null) { throw new Exception("No Vault exists with that Id"); }
+            else if (exists.UserId != userId) { throw new Exception("Not your vault player"); }
             return exists;
         }
 
         internal Vault Create(Vault newVault)
         {
-            _repo.Create(newVault);
+            _vaultRepo.Create(newVault);
             return newVault;
         }
 
 
         internal string Delete(int id)
         {
-            var exists = _repo.GetById(id);
+            var exists = _vaultRepo.GetById(id);
             if(exists == null) { throw new Exception("Item Does not Exist");}
-            _repo.Delete(id);
+            _vaultRepo.Delete(id);
             return "Vault has been deleted!";
-        }
-
-        internal object Edit(Vault update)
-        {
-            var exists = _repo.GetById(update.Id);
-            if(exists == null) { throw new Exception("Item Does not Exist");}
-            _repo.Edit(update);
-            return update;
         }
     }
 }
