@@ -20,7 +20,7 @@ namespace Keepr.Controllers
         {
             _vks = vks;
         }
-        [HttpGet]
+        [HttpGet("{id}/keeps")]
         public ActionResult<IEnumerable<Keep>> GetByVaultId(int id)
         {
             try
@@ -47,12 +47,12 @@ namespace Keepr.Controllers
                 return BadRequest(e.Message);
             }
         }
-        [HttpDelete("{id}")]
-        public ActionResult<String> Delete(int id)
+        [HttpDelete("{vaultId}/keeps/{keepId}")]
+        public ActionResult<String> Delete(int vaultId, int keepId)
         {
             try
             {
-                return Ok(_vks.Delete(id));
+                return Ok(_vks.Delete(vaultId, keepId));
             }
             catch (Exception e)
             {

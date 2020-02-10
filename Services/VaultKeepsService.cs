@@ -13,18 +13,12 @@ namespace Keepr.Services
         {
             _vaultKeepRepo = vaultKeepRepo;
         }
-        public IEnumerable<VaultKeep> Get(string userId)
+        public IEnumerable<Keep> GetByVaultId(int vaultId, string userId)
         {
-            return _vaultKeepRepo.Get(userId);
-        }
-        internal VaultKeep GetByVaultId(int id, string userId)
-        {
-            var exists = _vaultKeepRepo.GetByVaultId(id);
+            var exists = _vaultKeepRepo.GetByVaultId(vaultId, userId);
             if (exists == null) { throw new Exception("No Vault exists with that Id"); }
-            else if (exists.UserId != userId) { throw new Exception("Not your vault player"); }
             return exists;
         }
-
         internal VaultKeep Create(VaultKeep newVaultKeep)
         {
             _vaultKeepRepo.Create(newVaultKeep);
@@ -32,11 +26,11 @@ namespace Keepr.Services
         }
 
 
-        internal string Delete(int id)
+        internal string Delete(int vaultId, int keepId)
         {
-            var exists = _vaultKeepRepo.GetByVaultId(id);
+            var exists = _vaultKeepRepo.GetById(vaultId, keepId);
             if(exists == null) { throw new Exception("Item Does not Exist");}
-            _vaultKeepRepo.Delete(id);
+            _vaultKeepRepo.Delete(exists.Id);
             return "Vault has been deleted!";
         }
     }

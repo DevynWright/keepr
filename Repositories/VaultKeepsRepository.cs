@@ -14,24 +14,24 @@ namespace Keepr.Repositories
         {
             _db = db;
         }
-        internal IEnumerable<VaultKeep> Get(string userId)
+        internal IEnumerable<Keep> GetByVaultId(int vaultId, string userId)
         {
-            string sql = "SELECT * FROM Vaults WHERE userId = @UserId;";
-            return _db.Query<VaultKeep>(sql, new { userId });
+            string sql = "SELECT k.* FROM vaultkeeps vk INNER JOIN keeps k ON k.Id = vk.KeepId WHERE (vk.VaultId = @vaultId AND vk.UserId = @userId);";
+            return _db.Query<Keep>(sql, new { vaultId, userId });
         }
 
-        internal VaultKeep GetByVaultId(int id)
+        internal VaultKeep GetById(int vaultId, int keepId)
         {
-            string sql = "SELECT * FROM vaults WHERE id = @Id";
-            return _db.QueryFirstOrDefault<VaultKeep>(sql, new { id });
+            string sql = "SELECT * FROM vaultkeeps WHERE (VaultId = @vaultId And KeepId = @keepId);";
+            return _db.QueryFirstOrDefault<VaultKeep>(sql, new { vaultId, keepId });
         }
 
-        internal VaultKeep Create(VaultKeep VaultKeepData)
+        internal VaultKeep Create(VaultKeep vaultKeepData)
         {
-            string sql =@"INSERT INTO vaults (name, description) VALUES (@Name, @Description); SELECT LAST_INSERT_ID();";
-            int id = _db.ExecuteScalar<int>(sql, VaultKeepData);
-            VaultKeepData.Id = id;
-            return VaultKeepData;
+            string sql =@"INSERT INTO vaultkeeps (keepId, vaultId, userId) VALUES (@KeepId, @VaultId, @UserId); SELECT LAST_INSERT_ID();";
+            int id = _db.ExecuteScalar<int>(sql, vaultKeepData);
+            vaultKeepData.Id = id;
+            return vaultKeepData;
         }
 
         internal void Delete(int id)
