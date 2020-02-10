@@ -1,4 +1,4 @@
--- USE daskeepr;
+USE keeprr;
 
 -- CREATE TABLE vaults (
 --     id int NOT NULL AUTO_INCREMENT,
@@ -55,3 +55,9 @@
 -- DROP TABLE IF EXISTS vaults;
 -- DROP TABLE IF EXISTS keeps;
 -- DROP TABLE IF EXISTS users;
+
+-- INSERT INTO keeps
+-- (name, description, img, isPrivate, views, shares, keeps)
+-- VALUES 
+-- ("Devyn", "please work for me", "//placehold.it/200x200", 0, 0, 0, 0);
+-- SELECT LAST_INSERT_ID();

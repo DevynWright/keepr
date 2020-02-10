@@ -17,14 +17,14 @@ namespace Keepr.Services
         {
             return _repo.Get();
         }
-        public Keep GetById(int id)
+        internal Keep GetById(int id)
         {
             var exists = _repo.GetById(id);
             if(exists == null) { throw new Exception("Item Does not Exist");}
             return exists;
         }
 
-        public Keep Create(Keep newKeep)
+        internal Keep Create(Keep newKeep)
         {
             _repo.Create(newKeep);
             return newKeep;
@@ -39,12 +39,12 @@ namespace Keepr.Services
             return "Keep has been deleted!";
         }
 
-        internal object Edit(Keep newKeep)
+        internal object Edit(Keep update)
         {
-            var exists = _repo.GetById(newKeep.Id);
+            var exists = _repo.GetById(update.Id);
             if(exists == null) { throw new Exception("Item Does not Exist");}
-            _repo.Edit(newKeep);
-            return "Keep has been deleted!";
+            _repo.Edit(update);
+            return update;
         }
     }
 }
