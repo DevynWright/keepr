@@ -35,10 +35,11 @@ namespace Keepr.Services
         }
 
 
-        internal string Delete(int vaultId, int keepId)
+        internal string Delete(int vaultId, int keepId, string userId)
         {
             var exists = _vaultKeepRepo.GetById(vaultId, keepId);
             if(exists == null) { throw new Exception("Item Does not Exist");}
+            else if (exists.UserId != userId) { throw new Exception("not yours to delete killer");}
             _vaultKeepRepo.Delete(exists.Id);
             return "VaultKeep has been deleted!";
         }

@@ -70,7 +70,8 @@ namespace Keepr.Controllers
         {
             try
             {
-                return Ok(_vs.Delete(id));
+                var userId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+                return Ok(_vs.Delete(id, userId));
             }
             catch (Exception e)
             {
