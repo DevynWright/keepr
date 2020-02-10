@@ -19,10 +19,19 @@ namespace Keepr.Services
             if (exists == null) { throw new Exception("No Vault exists with that Id"); }
             return exists;
         }
-        internal VaultKeep Create(VaultKeep newVaultKeep)
+        internal string Create(VaultKeep newVaultKeep)
         {
-            _vaultKeepRepo.Create(newVaultKeep);
-            return newVaultKeep;
+            VaultKeep exists = _vaultKeepRepo.Find(newVaultKeep.KeepId, newVaultKeep.VaultId);
+            if (exists == null)
+            {
+                _vaultKeepRepo.Create(newVaultKeep);
+            }
+            else if (exists != null)
+            {
+                return "already exists";
+
+            }
+            return "successfull";
         }
 
 
@@ -31,7 +40,7 @@ namespace Keepr.Services
             var exists = _vaultKeepRepo.GetById(vaultId, keepId);
             if(exists == null) { throw new Exception("Item Does not Exist");}
             _vaultKeepRepo.Delete(exists.Id);
-            return "Vault has been deleted!";
+            return "VaultKeep has been deleted!";
         }
     }
 }

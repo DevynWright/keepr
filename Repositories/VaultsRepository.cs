@@ -16,19 +16,19 @@ namespace Keepr.Repositories
         }
         internal IEnumerable<Vault> Get(string userId)
         {
-            string sql = "SELECT * FROM Vaults WHERE userId = @UserId;";
+            string sql = "SELECT * FROM vaults WHERE userId = @userId;";
             return _db.Query<Vault>(sql, new { userId });
         }
 
         internal Vault GetById(int id)
         {
-            string sql = "SELECT * FROM vaults WHERE id = @Id";
+            string sql = "SELECT * FROM vaults WHERE id = @id";
             return _db.QueryFirstOrDefault<Vault>(sql, new { id });
         }
 
         internal Vault Create(Vault VaultData)
         {
-            string sql =@"INSERT INTO vaults (name, description) VALUES (@Name, @Description); SELECT LAST_INSERT_ID();";
+            string sql =@"INSERT INTO vaults (name, description, userId) VALUES (@Name, @Description, @UserId); SELECT LAST_INSERT_ID();";
             int id = _db.ExecuteScalar<int>(sql, VaultData);
             VaultData.Id = id;
             return VaultData;
