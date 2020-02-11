@@ -18,6 +18,9 @@ export default new Vuex.Store({
     publicKeeps: []
   },
   mutations: {
+    setPublicBoards(state, keeps){
+      state.publicKeeps = keeps
+    }
   },
   actions: {
     setBearer({}, bearer) {
@@ -25,6 +28,11 @@ export default new Vuex.Store({
     },
     resetBearer() {
       api.defaults.headers.authorization = "";
+    },
+    async getPublicKeeps({commit, dispatch}){
+      let res = await api.get("keeps");
+      commit("setPublicBoards", res.data);
+      console.log("from the store",this.state.publicKeeps);
     }
   }
 });
