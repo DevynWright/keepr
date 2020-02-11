@@ -17,10 +17,15 @@ namespace Keepr.Services
         {
             return _repo.Get();
         }
-        internal Keep GetById(int id)
+        internal Keep GetById(int id, string userId)
         {
             var exists = _repo.GetById(id);
             if(exists == null) { throw new Exception("Item Does not Exist");}
+            else if (exists.IsPrivate == true)
+            {
+                if(exists.UserId != userId){ throw new Exception("not your keep player");}
+                return exists;
+            }
             return exists;
         }
 
