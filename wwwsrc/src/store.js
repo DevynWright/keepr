@@ -32,7 +32,11 @@ export default new Vuex.Store({
     async getPublicKeeps({commit, dispatch}){
       let res = await api.get("keeps");
       commit("setPublicBoards", res.data);
-      console.log("from the store",this.state.publicKeeps);
+    },
+    async addKeep({commit, dispatch}, keep){
+      let res = await api.post("keeps", keep);
+      console.log("posting new keeps", res);
+      
     }
   }
 });

@@ -1,19 +1,21 @@
 <template>
-  <div class="home container">
+  <div class="home container-fluid">
     <div class="row">
       <div class="col-12">
         <input type="text">
         <i class="fas fa-search"></i>
       </div>
     </div>
-    <div class="row">
-      <div class="col-3">
+    <div id="cards" class="row">
+      <div  v-for="keep in keeps" :key="keep.Id" class="col-sm-3">
         <div class="card" style="width: 18rem;">
-          <img class="card-img-top" src="" alt="Card image cap">
+          <img class="card-img-top" :src="keep.img" alt="Card image cap">
           <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text"></p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
+            <h5 class="card-title">k: s: v:</h5>
+            <p class="card-text">{{ keep.description }}</p>
+            <a href="#" class="btn btn-primary">K</a>
+            <a href="#" class="btn btn-primary">S</a>
+            <a href="#" class="btn btn-primary">V</a>
           </div>
         </div>
       </div>
@@ -43,4 +45,8 @@ export default {
 };
 </script>
 <style>
+#cards{
+  display: flexbox;
+  justify-content: space-between;
+}
 </style>

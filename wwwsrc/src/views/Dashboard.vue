@@ -1,14 +1,65 @@
 <template>
-  <div class="dashboard">
-    <h1>WELCOME TO THE DASHBOARD</h1>
+  <div class="dashboard container-fluid">
+    <div class="row">
+      <div class="col-12">
+        <h1>WELCOME TO THE DASHBOARD</h1>
+      </div>
+      <div class="col-12">
+        <h1>create keep</h1>
+        <form @submit.prevent="addKeep">
+          <input v-model="newKeep.name" name="name" type="text" placeholder="name">
+          <input v-model="newKeep.description" name="description" type="text" placeholder="description">
+          <input v-model="newKeep.img" name="img" type="url" placeholder="image url">
+          <input v-model="newKeep.isPrivate" name="isPrivate" type="checkbox">
+          <label for="checkbox">Private: {{newKeep.isPrivate}}</label>
+          <button>create</button>
+        </form>
+      </div>
+      <div class="col-12">
+        <h1>create vault</h1>
+      </div>
+
+    </div>
+    
     public {{ publicKeeps }} user {{ userKeeps }}
   </div>
 </template>
 
 <script>
 export default {
+  data() {
+    return {
+      newKeep:{
+        name: "",
+        description: "",
+        img: "",
+        isPrivate: false,
+        views: 0,
+        shares: 0,
+        keeps: 0
+      }
+    }
+  },
   mounted() {},
-  computed: {}
+  computed: {},
+  methods: {
+    addKeep(){
+      let keep = {...this.newKeep};
+      this.$store.dispatch("addKeep", keep);
+      this.newKeep = {
+        name: "",
+        description: "",
+        img: "",
+        isPrivate: false,
+        views: 0,
+        shares: 0,
+        keeps: 0
+      }
+
+
+    }
+  }
+
 };
 </script>
 
