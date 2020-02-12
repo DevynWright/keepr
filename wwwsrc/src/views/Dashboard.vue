@@ -12,16 +12,28 @@
           <input v-model="newKeep.img" name="img" type="url" placeholder="image url">
           <input v-model="newKeep.isPrivate" name="isPrivate" type="checkbox">
           <label for="checkbox">Private: {{newKeep.isPrivate}}</label>
-          <button>create</button>
+          <button>create keep</button>
         </form>
       </div>
       <div class="col-12">
         <h1>create vault</h1>
+        <form @submit.prevent="addVault">
+          <input v-model="newVault.name" name="name" type="text" placeholder="name">
+          <input v-model="newVault.description" name="description" type="text" placeholder="description">
+          <button>create vault</button>
+        </form>
       </div>
-
     </div>
-    
-    public {{ publicKeeps }} user {{ userKeeps }}
+    <div class="row">
+      <div class="col-6">
+        <h1>PrivateKeeps</h1>
+      </div>
+      <div class="col-6">
+        <h1>Vaults</h1>
+        {{myKeeps}}
+      </div>
+    </div>
+    <!-- public {{ publicKeeps }} user {{ userKeeps }} -->
   </div>
 </template>
 
@@ -37,11 +49,22 @@ export default {
         views: 0,
         shares: 0,
         keeps: 0
+      },
+      newVault:{
+        name: "",
+        description: ""
       }
     }
   },
   mounted() {},
-  computed: {},
+  computed: {
+    vaults(){
+      return this.$store.dispatch("getVaults");
+    },
+    myKeeps(){
+      return this.$store.dispatch("getMyKeeps")
+    }
+  },
   methods: {
     addKeep(){
       let keep = {...this.newKeep};
@@ -55,8 +78,14 @@ export default {
         shares: 0,
         keeps: 0
       }
-
-
+    },
+    addVault(){
+      let vault = {...this.newVault};
+      this.$store.dispatch("addVault", vault);
+      this.newVault = {
+        name: "",
+        description: ""
+      }
     }
   }
 

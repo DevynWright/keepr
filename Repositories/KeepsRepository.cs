@@ -21,6 +21,11 @@ namespace Keepr.Repositories
             return _db.Query<Keep>(sql);
         }
 
+        internal IEnumerable<Keep> GetMyKeeps(string userId)
+        {
+            string sql = "SELECT * FROM Keeps WHERE userId = @userId;";
+            return _db.Query<Keep>(sql, new { userId });
+        }
         internal Keep Create(Keep newKeep)
         {
             string sql =@"
@@ -34,6 +39,7 @@ namespace Keepr.Repositories
             newKeep.Id = id;
             return newKeep;
         }
+
 
         internal Keep GetById(int id)
         {

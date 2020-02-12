@@ -22,7 +22,7 @@ namespace Keepr.Repositories
 
         internal VaultKeep GetById(int vaultId, int keepId)
         {
-            string sql = "SELECT * FROM vaultkeeps WHERE (VaultId = @vaultId And KeepId = @keepId);";
+            string sql = "SELECT * FROM vaultkeeps WHERE (VaultId = @vaultId AND KeepId = @keepId);";
             return _db.QueryFirstOrDefault<VaultKeep>(sql, new { vaultId, keepId });
         }
 

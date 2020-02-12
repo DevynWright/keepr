@@ -36,7 +36,7 @@ namespace Keepr.Controllers
         }
         [HttpGet("{id}")]
         [Authorize]
-        public ActionResult<Vault> Get(int id)
+        public ActionResult<Vault> GetById(int id)
         {
             try
             {
