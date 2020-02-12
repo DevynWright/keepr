@@ -27,10 +27,15 @@
     <div class="row">
       <div class="col-6">
         <h1>PrivateKeeps</h1>
+        <ul>
+          <li v-for="myKeep in myKeeps" :key="myKeep.Id">{{myKeep.name}}</li>
+        </ul>
       </div>
       <div class="col-6">
         <h1>Vaults</h1>
-        {{myKeeps}}
+        <ul>
+          <li v-for="vault in vaults" :key="vault.Id">{{vault.name}}</li>
+        </ul>
       </div>
     </div>
     <!-- public {{ publicKeeps }} user {{ userKeeps }} -->
@@ -56,13 +61,16 @@ export default {
       }
     }
   },
-  mounted() {},
+  mounted() {
+    this.$store.dispatch("getVaults");
+    this.$store.dispatch("getMyKeeps");
+  },
   computed: {
     vaults(){
-      return this.$store.dispatch("getVaults");
+      return this.$store.state.vaults;
     },
     myKeeps(){
-      return this.$store.dispatch("getMyKeeps")
+      return this.$store.state.privateKeeps;
     }
   },
   methods: {
