@@ -73,8 +73,12 @@ export default new Vuex.Store({
     },
     async addVault({commit, dispatch}, vault){
       let res = await api.post("vaults", vault);
-      ispatch("getVaults");
+      dispatch("getVaults");
       console.log("posting new vaults", res);
+    },
+    async addVaultKeep({commit, dispatch}, vaultKeep){
+      let res = await api.post("vaultkeeps", vaultKeep);
+      console.log("posting new vaultkeeps", vaultKeep);
     },
     async deleteKeep({commit, dispatch}, keep){
       let res = await api.delete("keeps/" + keep.id);

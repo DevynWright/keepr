@@ -31,6 +31,7 @@
           <li v-for="myKeep in myKeeps" :key="myKeep.Id">{{myKeep.name}}  
           <i @click="deleteKeep(myKeep)" class="fas fa-trash-alt"></i>
           <i @click="viewKeep(myKeep)" class="fas fa-eye"></i>
+          <i @click="setActive(myKeep)" type="button" data-toggle="modal" data-target="#myModal" class="fab fa-korvue"></i>
           </li>
         </ul>
       </div>
@@ -44,6 +45,25 @@
         </ul>
       </div>
     </div>
+    <div class="modal fade" id="myModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Where would you like to keep this?</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+            <select id="options" name="vault">
+              <option v-for="vault in vaults" :key="vault.id" :value="vault.id">{{vault.name}}</option>
+            </select>
+            <button @click="cvk">submit</button>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
     <!-- public {{ publicKeeps }} user {{ userKeeps }} -->
   </div>
 </template>
@@ -64,6 +84,10 @@ export default {
       newVault:{
         name: "",
         description: ""
+      },
+      newVaultKeep:{
+        keepId: "",
+        vaultId: ""
       }
     }
   },
@@ -114,6 +138,18 @@ export default {
     viewVault(vault){
       this.$store.commit("setActiveVault", vault);
       this.$router.push({path: '/vault'});
+    },
+    setActive(myKeep){
+      this.$store.commit("setActiveKeep", myKeep);
+    },
+    cvk(){
+      var o = document.getElementById("options");
+      var vaultId = o.options[o.selectedIndex].value;
+      var id = parseInt(vaultId, 10)
+      this.newVaultKeep.keepId = this.$store.state.activeKeep.id;
+      this.newVaultKeep.vaultId = id;
+      console.log("newVaultKeep vaultId", this.newVaultKeep);
+      this.$store.dispatch("addVaultKeep", this.newVaultKeep)
     }
   }
 

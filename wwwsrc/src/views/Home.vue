@@ -14,7 +14,7 @@
           <div class="card-body">
             <h5 class="card-title">k:{{keep.keeps}} s:{{keep.shares}} v:{{keep.views}}</h5>
             <p class="card-text">{{ keep.description }}</p>
-            <a href="#" class="btn btn-transparent"><i class="fab fa-korvue"></i></a>
+            <a class="btn btn-transparent"><i class="fab fa-korvue"></i></a>
             <a href="#" class="btn btn-transparent"><i @click="deleteKeep(keep)" class="fas fa-trash-alt"></i></a>
             <a @click="viewKeep(keep)" class="btn btn-transparent"><i class="fas fa-eye"></i></a>
           </div>
@@ -27,17 +27,29 @@
 <script>
 export default {
   name: "home",
+  data(){
+    return {
+      newVaultKeep:{
+        keepId: "",
+        vaultId: ""
+      }
+    }
+  },
   computed: {
     user() {
       return this.$store.state.user;
     },
     keeps(){
       return this.$store.state.publicKeeps;
+    },
+    vaults(){
+      return this.$store.state.vaults;
     }
   },
   mounted() {
-      this.$store.dispatch("getPublicKeeps");
-      console.log(this.$auth.user.sub,);
+    this.$store.dispatch("getPublicKeeps");
+    console.log(this.$auth.user.sub,);
+    console.log(this.$store.state.vaults);
       
   },
   methods: {
@@ -50,7 +62,7 @@ export default {
     viewKeep(keep){
       this.$store.dispatch("setActiveKeep", keep);
       this.$router.push({path: '/keep'});
-    }
+    },
   }
 };
 </script>
