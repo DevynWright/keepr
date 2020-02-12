@@ -28,8 +28,12 @@ namespace Keepr.Services
             else if (exists.IsPrivate == true)
             {
                 if(exists.UserId != userId){ throw new Exception("not your keep player");}
+                exists.Views += 1;
+                _repo.Edit(exists);
                 return exists;
             }
+            exists.Views += 1;
+            _repo.Edit(exists);
             return exists;
         }
 

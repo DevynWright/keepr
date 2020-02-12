@@ -11,13 +11,12 @@
       <div  v-for="keep in keeps" :key="keep.Id" class="col-sm-3">
         <div class="card" style="width: 18rem;">
           <img class="card-img-top" :src="keep.img" alt="Card image cap">
-          <button @click="deleteKeep(keep)" class="btn btn-danger">x</button>
           <div class="card-body">
             <h5 class="card-title">k:{{keep.keeps}} s:{{keep.shares}} v:{{keep.views}}</h5>
             <p class="card-text">{{ keep.description }}</p>
-            <a href="#" class="btn btn-primary">K</a>
-            <a href="#" class="btn btn-primary">S</a>
-            <a href="#" class="btn btn-primary">V</a>
+            <a href="#" class="btn btn-transparent"><i class="fab fa-korvue"></i></a>
+            <a href="#" class="btn btn-transparent"><i @click="deleteKeep(keep)" class="fas fa-trash-alt"></i></a>
+            <a @click="viewKeep(keep)" class="btn btn-transparent"><i class="fas fa-eye"></i></a>
           </div>
         </div>
       </div>
@@ -46,7 +45,11 @@ export default {
       this.$store.dispatch("logout");
     },
     deleteKeep(keep){
-      this.$store.dispatch("deleteKeep", keep)
+      this.$store.dispatch("deleteKeep", keep);
+    },
+    viewKeep(keep){
+      this.$store.dispatch("setActiveKeep", keep);
+      this.$router.push({path: '/keep'});
     }
   }
 };

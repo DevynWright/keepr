@@ -24,13 +24,21 @@ export default new Vuex.Store({
   },
   mutations: {
     setPublicKeeps(state, keeps){
-      state.publicKeeps = keeps
+      state.publicKeeps = keeps;
     },
     setPrivateKeeps(state, keeps){
-      state.privateKeeps = keeps
+      state.privateKeeps = keeps;
     },
     setVaults(state, vaults){
-      state.vaults = vaults
+      state.vaults = vaults;
+    },
+    setActiveKeep(state, keep){
+      state.activeKeep = keep;
+      console.log("active keep from state", this.state.activeKeep);
+    },
+    setActiveVault(state, vault){
+      state.activeVault = vault;
+      console.log("active keep from state", this.state.activeVault);
     }
   },
   actions: {
@@ -58,11 +66,14 @@ export default new Vuex.Store({
     },
     async addKeep({commit, dispatch}, keep){
       let res = await api.post("keeps", keep);
+      dispatch("getPublicKeeps");
+      dispatch("getMyKeeps");
       console.log("posting new keeps", res.data);
       
     },
     async addVault({commit, dispatch}, vault){
       let res = await api.post("vaults", vault);
+      ispatch("getVaults");
       console.log("posting new vaults", res);
     },
     async deleteKeep({commit, dispatch}, keep){
@@ -76,5 +87,9 @@ export default new Vuex.Store({
       dispatch("getVaults");
       console.log("keep deleted", res);
     },
+    async setActiveKeep({commit, dispatch}, keep){
+      let res = await api.get("keeps/" + keep.id);
+      commit("setActiveKeep", res);
+    }
   }
 });

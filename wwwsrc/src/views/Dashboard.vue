@@ -28,13 +28,19 @@
       <div class="col-6">
         <h1>All My Keeps</h1>
         <ul>
-          <li v-for="myKeep in myKeeps" :key="myKeep.Id">{{myKeep.name}}  <i @click="deleteKeep(myKeep)" class="fas fa-trash-alt"></i></li>
+          <li v-for="myKeep in myKeeps" :key="myKeep.Id">{{myKeep.name}}  
+          <i @click="deleteKeep(myKeep)" class="fas fa-trash-alt"></i>
+          <i @click="viewKeep(myKeep)" class="fas fa-eye"></i>
+          </li>
         </ul>
       </div>
       <div class="col-6">
         <h1>Vaults</h1>
         <ul>
-          <li v-for="vault in vaults" :key="vault.Id">{{vault.name}}  <i @click="deleteVault(vault)" class="fas fa-trash-alt"></i></li>
+          <li v-for="vault in vaults" :key="vault.Id">{{vault.name}}  
+          <i @click="deleteVault(vault)" class="fas fa-trash-alt"></i>
+          <i @click="viewVault(vault)" class="fas fa-eye"></i>
+          </li>
         </ul>
       </div>
     </div>
@@ -100,6 +106,14 @@ export default {
     },
     deleteVault(vault){
       this.$store.dispatch("deleteVault", vault)
+    },
+    viewKeep(myKeep){
+      this.$store.dispatch("setActiveKeep", myKeep);
+      this.$router.push({path: '/keep'});
+    },
+    viewVault(vault){
+      this.$store.commit("setActiveVault", vault);
+      this.$router.push({path: '/vault'});
     }
   }
 
