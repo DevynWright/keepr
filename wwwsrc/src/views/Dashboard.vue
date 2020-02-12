@@ -26,15 +26,15 @@
     </div>
     <div class="row">
       <div class="col-6">
-        <h1>PrivateKeeps</h1>
+        <h1>All My Keeps</h1>
         <ul>
-          <li v-for="myKeep in myKeeps" :key="myKeep.Id">{{myKeep.name}}</li>
+          <li v-for="myKeep in myKeeps" :key="myKeep.Id">{{myKeep.name}}  <i @click="deleteKeep(myKeep)" class="fas fa-trash-alt"></i></li>
         </ul>
       </div>
       <div class="col-6">
         <h1>Vaults</h1>
         <ul>
-          <li v-for="vault in vaults" :key="vault.Id">{{vault.name}}</li>
+          <li v-for="vault in vaults" :key="vault.Id">{{vault.name}}  <i @click="deleteVault(vault)" class="fas fa-trash-alt"></i></li>
         </ul>
       </div>
     </div>
@@ -94,6 +94,12 @@ export default {
         name: "",
         description: ""
       }
+    },
+    deleteKeep(myKeep){
+      this.$store.dispatch("deleteKeep", myKeep)
+    },
+    deleteVault(vault){
+      this.$store.dispatch("deleteVault", vault)
     }
   }
 

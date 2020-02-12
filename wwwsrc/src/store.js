@@ -65,10 +65,16 @@ export default new Vuex.Store({
       let res = await api.post("vaults", vault);
       console.log("posting new vaults", res);
     },
-    async deleteKeep({commit, dispatch}, ){
-      let res = await api.post("vaults", vault);
-      console.log("posting new vaults", res);
-      
+    async deleteKeep({commit, dispatch}, keep){
+      let res = await api.delete("keeps/" + keep.id);
+      dispatch("getPublicKeeps");
+      dispatch("getMyKeeps");
+      console.log("keep deleted", res);
+    },
+    async deleteVault({commit, dispatch}, vault){
+      let res = await api.delete("vaults/" + vault.id);
+      dispatch("getVaults");
+      console.log("keep deleted", res);
     },
   }
 });
