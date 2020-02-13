@@ -1,15 +1,14 @@
 <template>
-  <div class="home container-fluid">
+  <div id="bg" :style="{ 'background-image': 'url(https://yiworks.com/wp-content/uploads/2016/11/Cool-Light-Grey-background-fantastic-imago-creative-studio-video-production.jpg)' }" class="home container-fluid">
     <div class="row">
-      <div class="col-12">
-        <h1>HOME</h1>
-        <input type="text">
+      <div id="search" class="col-12" style="text-align: center">
+        <input id="searchbar" type="text">
         <i class="fas fa-search"></i>
       </div>
     </div>
     <div id="cards" class="row">
       <div  v-for="keep in keeps" :key="keep.Id" class="col-sm-3">
-        <div class="card" style="width: 18rem;">
+        <div id="card" class="card" style="width: 18rem;">
           <img class="card-img-top" :src="keep.img" alt="Card image cap">
           <div class="card-body">
             <h5 class="card-title">k:{{keep.keeps}} s:{{keep.shares}} v:{{keep.views}}</h5>
@@ -67,8 +66,23 @@ export default {
 };
 </script>
 <style>
+#bg{
+  background-size: cover;
+  height: 100vh;
+}
+#search{
+  height: 10vh;
+  padding: 40px 40px;
+}
+#searchbar{
+  height: 4vh;
+  width: 70vw;
+}
 #cards{
   display: flexbox;
   justify-content: space-between;
+}
+#card{
+  border-radius: 5%;
 }
 </style>
