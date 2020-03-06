@@ -1,5 +1,5 @@
 <template>
-  <div class="dashboard container-fluid">
+  <div id="bg" :style="{ 'background-image': 'url(https://yiworks.com/wp-content/uploads/2016/11/Cool-Light-Grey-background-fantastic-imago-creative-studio-video-production.jpg)' }" class="dashboard container-fluid">
     <div class="row">
       <div class="col-12">
         <h1>WELCOME TO THE DASHBOARD</h1>

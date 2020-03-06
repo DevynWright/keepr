@@ -1,5 +1,5 @@
 <template>
-    <div class="ActiveKeep container-fluid">
+    <div id="bg" :style="{ 'background-image': 'url(https://yiworks.com/wp-content/uploads/2016/11/Cool-Light-Grey-background-fantastic-imago-creative-studio-video-production.jpg)' }" class="ActiveKeep container-fluid">
         <div class="row">
             <div class="col-12">
                 <img :src="activeKeep.img" alt="">

@@ -1,5 +1,5 @@
 <template>
-  <div class="ActiveVault container-fluid">
+  <div id="bg" :style="{ 'background-image': 'url(https://yiworks.com/wp-content/uploads/2016/11/Cool-Light-Grey-background-fantastic-imago-creative-studio-video-production.jpg)' }" class="ActiveVault container-fluid">
       <div class="row">
           <div class="col-12">
               <h1>{{activeVault.name}}</h1>
