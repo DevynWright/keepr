@@ -3,6 +3,7 @@
     <div class="row">
       <div id="search" class="col-12" style="text-align: center">
         <input id="searchbar" type="text">
+        
         <i class="fas fa-search"></i>
       </div>
     </div>
